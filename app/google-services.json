@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "869735525884",
+    "project_id": "trackmyway-46220",
+    "storage_bucket": "trackmyway-46220.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869735525884:android:0e74d67652e48dc8edd679",
+        "android_client_info": {
+          "package_name": "jx.pdp_dars.map_july"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869735525884-sqb5igcr9qskfjlobskmg7gju63aqf6v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCABI3UXnHxskPszJLWDnWWpu3MnkF4tgY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "869735525884-sqb5igcr9qskfjlobskmg7gju63aqf6v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
