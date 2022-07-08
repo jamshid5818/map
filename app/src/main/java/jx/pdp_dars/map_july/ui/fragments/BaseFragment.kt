@@ -1,4 +1,4 @@
-package jx.pdp_dars.map_july.ui.fragmentss
+package jx.pdp_dars.map_july.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

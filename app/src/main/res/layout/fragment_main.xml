@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.fragmentss.main.MainFragment">
+    tools:context=".ui.fragments.main.MainFragment">
     <Button
         android:id="@+id/start_map"
         android:text="start"

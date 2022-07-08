@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/base_navigation"
-    app:startDestination="@id/finishFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/finishFragment"
-        android:name="jx.pdp_dars.map_july.ui.fragmentss.finish.FinishFragment"
+        android:name="jx.pdp_dars.map_july.ui.fragments.finish.FinishFragment"
         android:label="fragment_finish"
         tools:layout="@layout/fragment_finish" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
-        android:name="jx.pdp_dars.map_july.ui.fragmentss.history.HistoryFragment"
+        android:name="jx.pdp_dars.map_july.ui.fragments.history.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="jx.pdp_dars.map_july.ui.fragmentss.main.MainFragment"
+        android:name="jx.pdp_dars.map_july.ui.fragments.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/stataFragment"
-        android:name="jx.pdp_dars.map_july.ui.fragmentss.stata.StataFragment"
+        android:name="jx.pdp_dars.map_july.ui.fragments.statistics.StataFragment"
         android:label="fragment_stata"
         tools:layout="@layout/fragment_stata" >
         <action
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="jx.pdp_dars.map_july.ui.fragmentss.register.RegisterFragment"
+        android:name="jx.pdp_dars.map_july.ui.fragments.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -58,7 +58,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="jx.pdp_dars.map_july.ui.fragmentss.settings.SettingsFragment"
+        android:name="jx.pdp_dars.map_july.ui.fragments.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" >
         <action
@@ -67,7 +67,7 @@
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
-        android:name="jx.pdp_dars.map_july.ui.fragmentss.splash.SplashFragment"
+        android:name="jx.pdp_dars.map_july.ui.fragments.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
@@ -76,7 +76,7 @@
     </fragment>
     <fragment
         android:id="@+id/startFragment"
-        android:name="jx.pdp_dars.map_july.ui.fragmentss.start.StartFragment"
+        android:name="jx.pdp_dars.map_july.ui.fragments.start.StartFragment"
         android:label="fragment_start"
         tools:layout="@layout/fragment_start" >
         <action

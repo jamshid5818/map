@@ -1,4 +1,4 @@
-package jx.pdp_dars.map_july.ui.fragmentss.start
+package jx.pdp_dars.map_july.ui.fragments.start
 
 import androidx.lifecycle.ViewModel
 
