@@ -6,21 +6,24 @@
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".ui.fragments.main.MainFragment">
+
     <Button
-        android:id="@+id/start_map"
-        android:text="start"
+        android:id="@+id/startTravel"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="Start new travel" />
+
     <Button
         android:id="@+id/history"
-        android:text="HISTORY"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="HISTORY" />
+
     <Button
         android:id="@+id/settings"
-        android:text="SETTINGS"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="SETTINGS" />
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

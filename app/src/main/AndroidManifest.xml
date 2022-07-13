@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="jx.pdp_dars.map_july">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Map_july"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDa2aCjT0x1D7_jJ4b57z7_8z7ab13eWpg" />
+
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">
@@ -22,6 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name=".ui.data.services.LocationService" />
     </application>
 
 </manifest>

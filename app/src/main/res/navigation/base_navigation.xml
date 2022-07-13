@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/base_navigation"
-    app:startDestination="@id/splashFragment">
+    app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/finishFragment"
@@ -35,8 +35,9 @@
             android:id="@+id/action_mainFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_startFragment2"
-            app:destination="@id/startFragment" />
+            android:id="@+id/action_mainFragment_to_markPositionFragment"
+            app:destination="@id/markPositionFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/stataFragment"
@@ -83,4 +84,9 @@
             android:id="@+id/action_startFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/markPositionFragment"
+        android:name="jx.pdp_dars.map_july.ui.fragments.travel.MarkPositionFragment"
+        android:label="mark_position_fragment"
+        tools:layout="@layout/mark_position_fragment" />
 </navigation>
