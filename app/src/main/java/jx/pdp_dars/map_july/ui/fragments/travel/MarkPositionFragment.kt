@@ -4,8 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.requestPermissions
+import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -23,6 +22,7 @@ import jx.pdp_dars.map_july.ui.fragments.BaseFragment
 
 class MarkPositionFragment :
     BaseFragment<MarkPositionFragmentBinding>(MarkPositionFragmentBinding::inflate) {
+    private val PERMISSION_REQUEST_CODE = 123
     lateinit var shared: SharedPref
     val db by lazy {
         Firebase.database
@@ -34,40 +34,76 @@ class MarkPositionFragment :
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
 
         binding.selectPlace.setOnClickListener {
-            Toast.makeText(requireContext(), "Hello", Toast.LENGTH_SHORT).show()
-            if (ActivityCompat.checkSelfPermission(
+            when {
+                ContextCompat.checkSelfPermission(
                     requireContext(),
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-
-            ) {
-                requestPermissions(
-                    requireActivity(), arrayOf(
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-
-                    ),
-                    12345
-                )
-            } else {
-                Toast.makeText(requireContext(), "checkPermissions", Toast.LENGTH_SHORT).show()
-                val key = db.getReference("travel").push().key ?: ""
-                db.getReference("travel").child(key)
-                    .setValue(TravelData(key, binding.travelName.text.toString()))
-                    .addOnCompleteListener {
-                        shared.setTravelId(key)
-                        val intent = Intent(requireContext(), LocationService::class.java)
-                        intent.putExtra("TRAVEL_ID", key)
-                        requireActivity().startService(intent)
-                    }
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                ) == PackageManager.PERMISSION_GRANTED
+                        &&
+                        ContextCompat.checkSelfPermission(
+                            requireContext(),
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                        ) == PackageManager.PERMISSION_GRANTED
+//                        &&
+//                        ContextCompat.checkSelfPermission(
+//                            requireContext(),
+//                            Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+//                        ) == PackageManager.PERMISSION_GRANTED
+                -> {
+                    runTrackingService()
+                }
+                shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION) -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Please give me access !!!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    requestPermissions(
+                        arrayOf(
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                        ),
+                        PERMISSION_REQUEST_CODE
+                    )
+                }
+                shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Please give me access !!!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    requestPermissions(
+                        arrayOf(
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                        ),
+                        PERMISSION_REQUEST_CODE
+                    )
+                }
+                else -> {
+                    // You can directly ask for the permission.
+                    requestPermissions(
+                        arrayOf(
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                        ),
+                        PERMISSION_REQUEST_CODE
+                    )
+                }
             }
-
         }
+    }
+
+    fun runTrackingService() {
+        val key = db.getReference("travel").push().key ?: ""
+        db.getReference("travel").child(key)
+            .setValue(TravelData(key, binding.travelName.text.toString()))
+            .addOnCompleteListener {
+                shared.setTravelId(key)
+                val intent = Intent(requireContext(), LocationService::class.java)
+                intent.putExtra("TRAVEL_ID", key)
+                requireActivity().startService(intent)
+            }
     }
 
     override fun onViewCreate() {
@@ -78,5 +114,23 @@ class MarkPositionFragment :
         mapFragment?.getMapAsync(callback)
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
+    ) {
+        when (requestCode) {
+            PERMISSION_REQUEST_CODE -> {
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() &&
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED)
+                ) {
+                    runTrackingService()
+                } else {
+                    Toast.makeText(requireContext(), "Please give me access", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        }
+    }
 
 }
