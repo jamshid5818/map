@@ -1,15 +1,12 @@
 package jx.pdp_dars.map_july.ui.fragments.travel
 
 import android.Manifest
-import android.content.Intent
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import jx.pdp_dars.map_july.R
@@ -27,12 +24,24 @@ class MarkPositionFragment :
     val db by lazy {
         Firebase.database
     }
+
+    @SuppressLint("MissingPermission")
     private val callback = OnMapReadyCallback { googleMap ->
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+            ) == PackageManager.PERMISSION_GRANTED
+            &&
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION,
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            googleMap.isMyLocationEnabled = true
+        }
 
-        val sydney = LatLng(41.311081, 69.240562)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Tashkent"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-
+        googleMap.uiSettings.isMyLocationButtonEnabled = true
+        googleMap.uiSettings.isZoomControlsEnabled = true
         binding.selectPlace.setOnClickListener {
             when {
                 ContextCompat.checkSelfPermission(
@@ -44,11 +53,6 @@ class MarkPositionFragment :
                             requireContext(),
                             Manifest.permission.ACCESS_FINE_LOCATION,
                         ) == PackageManager.PERMISSION_GRANTED
-//                        &&
-//                        ContextCompat.checkSelfPermission(
-//                            requireContext(),
-//                            Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-//                        ) == PackageManager.PERMISSION_GRANTED
                 -> {
                     runTrackingService()
                 }
@@ -94,16 +98,22 @@ class MarkPositionFragment :
         }
     }
 
-    fun runTrackingService() {
-        val key = db.getReference("travel").push().key ?: ""
-        db.getReference("travel").child(key)
-            .setValue(TravelData(key, binding.travelName.text.toString()))
-            .addOnCompleteListener {
-                shared.setTravelId(key)
-                val intent = Intent(requireContext(), LocationService::class.java)
-                intent.putExtra("TRAVEL_ID", key)
-                requireActivity().startService(intent)
-            }
+    private fun runTrackingService() {
+        val dialog = TravelNameDialog(requireContext())
+        dialog.setOnButtonClickListener {
+            val key = db.getReference("travel").push().key ?: ""
+            db.getReference("travel").child(key)
+                .setValue(TravelData(key, it))
+                .addOnCompleteListener {
+                    shared.setTravelId(key)
+                    LocationService.startLocationService(requireActivity(), key)
+                    dialog.dismiss()
+                    navController.navigate(R.id.action_markPositionFragment_to_showPointsFragment)
+                }
+
+        }
+        dialog.show()
+
     }
 
     override fun onViewCreate() {

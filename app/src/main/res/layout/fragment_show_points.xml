@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.travel.MarkPositionFragment">
+    tools:context=".ui.fragments.travel.ShowPointsFragment">
 
     <fragment
         android:id="@+id/map"
@@ -13,9 +13,9 @@
 
     <Button
         android:layout_margin="16dp"
-        android:id="@+id/selectPlace"
+        android:id="@+id/finishTravel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:text="Select" />
+        android:text="Finish" />
 </FrameLayout>

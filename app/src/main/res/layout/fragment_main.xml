@@ -14,6 +14,12 @@
         android:text="Start new travel" />
 
     <Button
+        android:id="@+id/showCurrentTravel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show current travel" />
+
+    <Button
         android:id="@+id/history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

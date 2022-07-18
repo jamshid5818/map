@@ -9,7 +9,7 @@
         android:id="@+id/finishFragment"
         android:name="jx.pdp_dars.map_july.ui.fragments.finish.FinishFragment"
         android:label="fragment_finish"
-        tools:layout="@layout/fragment_finish" >
+        tools:layout="@layout/fragment_finish">
         <action
             android:id="@+id/action_finishFragment_to_stataFragment"
             app:destination="@id/stataFragment" />
@@ -18,7 +18,7 @@
         android:id="@+id/historyFragment"
         android:name="jx.pdp_dars.map_july.ui.fragments.history.HistoryFragment"
         android:label="fragment_history"
-        tools:layout="@layout/fragment_history" >
+        tools:layout="@layout/fragment_history">
         <action
             android:id="@+id/action_historyFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
@@ -27,7 +27,7 @@
         android:id="@+id/mainFragment"
         android:name="jx.pdp_dars.map_july.ui.fragments.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_historyFragment"
             app:destination="@id/historyFragment" />
@@ -37,13 +37,16 @@
         <action
             android:id="@+id/action_mainFragment_to_markPositionFragment"
             app:destination="@id/markPositionFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_showPointsFragment"
+            app:destination="@id/showPointsFragment" />
 
     </fragment>
     <fragment
         android:id="@+id/stataFragment"
         android:name="jx.pdp_dars.map_july.ui.fragments.statistics.StataFragment"
         android:label="fragment_stata"
-        tools:layout="@layout/fragment_stata" >
+        tools:layout="@layout/fragment_stata">
         <action
             android:id="@+id/action_stataFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
@@ -52,7 +55,7 @@
         android:id="@+id/registerFragment"
         android:name="jx.pdp_dars.map_july.ui.fragments.register.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_finishFragment"
             app:destination="@id/finishFragment" />
@@ -61,25 +64,25 @@
         android:id="@+id/settingsFragment"
         android:name="jx.pdp_dars.map_july.ui.fragments.settings.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" >
+        tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_settingsFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/splashFragment"
-        android:name="jx.pdp_dars.map_july.ui.fragments.splash.SplashFragment"
-        android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" >
-        <action
-            android:id="@+id/action_splashFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-    </fragment>
+    <!--    <fragment-->
+    <!--        android:id="@+id/splashFragment"-->
+    <!--        android:name="jx.pdp_dars.map_july.ui.fragments.splash.SplashFragment"-->
+    <!--        android:label="fragment_splash"-->
+    <!--        tools:layout="@layout/fragment_splash" >-->
+    <!--        <action-->
+    <!--            android:id="@+id/action_splashFragment_to_mainFragment"-->
+    <!--            app:destination="@id/mainFragment" />-->
+    <!--    </fragment>-->
     <fragment
         android:id="@+id/startFragment"
         android:name="jx.pdp_dars.map_july.ui.fragments.start.StartFragment"
         android:label="fragment_start"
-        tools:layout="@layout/fragment_start" >
+        tools:layout="@layout/fragment_start">
         <action
             android:id="@+id/action_startFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
@@ -88,5 +91,16 @@
         android:id="@+id/markPositionFragment"
         android:name="jx.pdp_dars.map_july.ui.fragments.travel.MarkPositionFragment"
         android:label="mark_position_fragment"
-        tools:layout="@layout/mark_position_fragment" />
+        tools:layout="@layout/mark_position_fragment">
+        <action
+            android:id="@+id/action_markPositionFragment_to_showPointsFragment"
+            app:destination="@id/showPointsFragment"
+            app:popUpTo="@id/markPositionFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/showPointsFragment"
+        android:name="jx.pdp_dars.map_july.ui.fragments.travel.ShowPointsFragment"
+        android:label="fragment_show_points"
+        tools:layout="@layout/fragment_show_points" />
 </navigation>

@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.splashFragment,
+//                R.id.splashFragment,
                 R.id.mainFragment
             )
         )
