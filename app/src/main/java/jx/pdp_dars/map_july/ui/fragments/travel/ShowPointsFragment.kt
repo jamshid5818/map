@@ -3,6 +3,7 @@ package jx.pdp_dars.map_july.ui.fragments.travel
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.util.Log
 import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.GoogleMap
@@ -10,6 +11,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -70,10 +72,11 @@ class ShowPointsFragment :
                 override fun onDataChange(snapshot: DataSnapshot) {
                     Log.d("MY_DB", "Value size: ${snapshot.childrenCount}")
                     Log.d("MY_DB", "Value size: ${snapshot.children.count()}")
-
+                    val options = PolylineOptions().width(5f).color(Color.BLUE).geodesic(true)
                     snapshot.children.forEachIndexed { index, data ->
                         val h = data.getValue(HistoryData::class.java)
                         h?.let {
+                            options.add(LatLng(it.lat, it.lon))
                             val calendar = Calendar.getInstance()
                             calendar.timeInMillis = h.historyTime
                             googleMap?.addMarker(
@@ -89,6 +92,7 @@ class ShowPointsFragment :
                             )
                         }
                     }
+                    googleMap?.addPolyline(options)
 
                 }
 
