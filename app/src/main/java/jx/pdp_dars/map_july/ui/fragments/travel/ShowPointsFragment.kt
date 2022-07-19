@@ -19,7 +19,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import jx.pdp_dars.map_july.R
 import jx.pdp_dars.map_july.databinding.FragmentShowPointsBinding
-import jx.pdp_dars.map_july.ui.data.models.local.HistoryData
+import jx.pdp_dars.map_july.ui.data.local.HistoryData
 import jx.pdp_dars.map_july.ui.data.services.LocationService
 import jx.pdp_dars.map_july.ui.data.utils.SharedPref
 import jx.pdp_dars.map_july.ui.fragments.BaseFragment
@@ -72,7 +72,7 @@ class ShowPointsFragment :
                 override fun onDataChange(snapshot: DataSnapshot) {
                     Log.d("MY_DB", "Value size: ${snapshot.childrenCount}")
                     Log.d("MY_DB", "Value size: ${snapshot.children.count()}")
-                    val options = PolylineOptions().width(5f).color(Color.BLUE).geodesic(true)
+                        val options = PolylineOptions().width(5f).color(Color.BLUE).geodesic(true)
                     snapshot.children.forEachIndexed { index, data ->
                         val h = data.getValue(HistoryData::class.java)
                         h?.let {

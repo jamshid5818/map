@@ -7,7 +7,7 @@
 //import com.google.firebase.database.ktx.database
 //import com.google.firebase.ktx.Firebase
 //import jx.pdp_dars.map_july.databinding.FragmentSplashBinding
-//import jx.pdp_dars.map_july.ui.data.models.local.HistoryData
+//import jx.pdp_dars.map_july.ui.data.local.HistoryData
 //import jx.pdp_dars.map_july.ui.fragments.BaseFragment
 //import java.util.*
 //

@@ -11,7 +11,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import jx.pdp_dars.map_july.R
 import jx.pdp_dars.map_july.databinding.MarkPositionFragmentBinding
-import jx.pdp_dars.map_july.ui.data.models.local.TravelData
+import jx.pdp_dars.map_july.ui.data.local.TravelData
 import jx.pdp_dars.map_july.ui.data.services.LocationService
 import jx.pdp_dars.map_july.ui.data.utils.SharedPref
 import jx.pdp_dars.map_july.ui.fragments.BaseFragment

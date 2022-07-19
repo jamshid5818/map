@@ -8,7 +8,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import jx.pdp_dars.map_july.R
 import jx.pdp_dars.map_july.databinding.FragmentMainBinding
-import jx.pdp_dars.map_july.ui.data.models.local.UserData
+import jx.pdp_dars.map_july.ui.data.local.UserData
 import jx.pdp_dars.map_july.ui.data.services.LocationService
 import jx.pdp_dars.map_july.ui.data.utils.SharedPref
 import jx.pdp_dars.map_july.ui.fragments.BaseFragment
@@ -49,7 +49,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
         return false
     }
 
-    fun saveUser() {
+    private fun saveUser() {
         if (shared.getUsername().isNullOrEmpty()) {
             val dialog = UserNameDialog(requireContext())
             dialog.setOnButtonClickListener { username, password ->

@@ -9,13 +9,12 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import jx.pdp_dars.map_july.R
 import jx.pdp_dars.map_july.ui.MainActivity
-import jx.pdp_dars.map_july.ui.data.models.local.HistoryData
+import jx.pdp_dars.map_july.ui.data.local.HistoryData
 import jx.pdp_dars.map_july.ui.data.utils.LocationHelper
 
 class LocationService : Service() {
-
     private var locationHelper: LocationHelper? = null
-    val db by lazy {
+    private val db by lazy {
         Firebase.database
     }
 
@@ -34,7 +33,7 @@ class LocationService : Service() {
             context.stopService(intent)
         }
 
-        fun isServiceRunningInForeground(context: Context, serviceClass: Class<*>): Boolean {
+        private fun isServiceRunningInForeground(context: Context, serviceClass: Class<*>): Boolean {
             val manager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
             for (service in manager.getRunningServices(Int.MAX_VALUE)) {
                 if (serviceClass.name == service.service.className) {
@@ -65,7 +64,7 @@ class LocationService : Service() {
     }
 
 
-    fun notificationToDisplayServiceInfor(): Notification {
+    private fun notificationToDisplayServiceInfor(): Notification {
         createNotificationChannel()
         val notificationIntent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(

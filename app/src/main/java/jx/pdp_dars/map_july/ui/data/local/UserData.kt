@@ -1,4 +1,4 @@
-package jx.pdp_dars.map_july.ui.data.models.local
+package jx.pdp_dars.map_july.ui.data.local
 
  class UserData{
      var username: String = ""

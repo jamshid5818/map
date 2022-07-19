@@ -5,11 +5,9 @@ import android.content.Context
 import android.location.Location
 import android.os.Looper
 import com.google.android.gms.location.*
+import com.google.android.gms.maps.model.LatLng
 import java.util.*
 
-/**
- * Created by Microstar on 27.03.2020.
- */
 class LocationHelper {
 
     private var listener: ((lat: Double, lon: Double, speed: Double, time: Long) -> Unit)? = null
@@ -111,5 +109,15 @@ class LocationHelper {
 //                log(e.toString())
             }
         }
+    }
+    lateinit var latLng : LatLng
+
+    fun getCurrentLocation(): LatLng {
+            locationCallback = object : LocationCallback() {
+            override fun onLocationResult(p0: LocationResult) {
+                latLng = LatLng(p0.lastLocation!!.latitude, p0.lastLocation!!.longitude)
+            }
+        }
+        return latLng
     }
 }
