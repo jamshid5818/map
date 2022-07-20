@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.firebase.database.ktx.database
@@ -102,13 +103,16 @@ class MarkPositionFragment :
         val dialog = TravelNameDialog(requireContext())
         dialog.setOnButtonClickListener {
             val key = db.getReference("travel").push().key ?: ""
-            db.getReference("travel").child(key)
+            db.getReference("travel").child(shared.getUsername() ?: "").child(key)
                 .setValue(TravelData(key, it))
                 .addOnCompleteListener {
                     shared.setTravelId(key)
                     LocationService.startLocationService(requireActivity(), key)
                     dialog.dismiss()
-                    navController.navigate(R.id.action_markPositionFragment_to_showPointsFragment)
+                    navController.navigate(
+                        R.id.action_markPositionFragment_to_showPointsFragment,
+                        bundleOf("TRAVEL_ID" to key)
+                    )
                 }
 
         }

@@ -3,14 +3,17 @@ package jx.pdp_dars.map_july.ui.data.models.local
 class HistoryData {
     var id: String = ""
     var historyAvgSpeed: Double = 0.0
+    var historyAvgDistance: Double = 0.0
     var historyTime: Long = 0
     var travelId: String = ""
     var lat: Double = 0.0
     var lon: Double = 0.0
+
     constructor()
     constructor(
         id: String,
         historyAvgSpeed: Double,
+        historyAvgDistance: Double,
         historyTime: Long,
         travelId: String,
         lat: Double,
@@ -18,6 +21,7 @@ class HistoryData {
     ) {
         this.id = id
         this.historyAvgSpeed = historyAvgSpeed
+        this.historyAvgDistance = historyAvgDistance
         this.historyTime = historyTime
         this.travelId = travelId
         this.lat = lat

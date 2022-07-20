@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="8dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="wefweffwef86wfwef87we6f"
+        android:id="@+id/travelId"
+        android:textColor="#000"
+        android:textSize="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:text="wefweffwef86wfwef87we6f"
+        android:id="@+id/travelName"
+        android:layout_marginTop="8dp"
+        android:textColor="#000"
+        android:textSize="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

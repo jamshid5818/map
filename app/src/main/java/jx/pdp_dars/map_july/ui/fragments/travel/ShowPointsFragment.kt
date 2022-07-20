@@ -67,15 +67,29 @@ class ShowPointsFragment :
 
     override fun onResume() {
         super.onResume()
-        db.getReference("history").child(shared.getTravelId() ?: "")
+        binding.id.text = requireArguments().getString("TRAVEL_ID", "")
+        db.getReference("history").child(requireArguments().getString("TRAVEL_ID", ""))
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     Log.d("MY_DB", "Value size: ${snapshot.childrenCount}")
                     Log.d("MY_DB", "Value size: ${snapshot.children.count()}")
+                    var speed = 0.0
+                    var distance = 0.0
                     val options = PolylineOptions().width(5f).color(Color.BLUE).geodesic(true)
                     snapshot.children.forEachIndexed { index, data ->
                         val h = data.getValue(HistoryData::class.java)
                         h?.let {
+                            if (index == 0) {
+                                val calendar = Calendar.getInstance()
+                                calendar.timeInMillis = h.historyTime
+                                binding.starTime.text =
+                                    SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(calendar.time)
+                            }
+                            if (h.historyAvgSpeed > 0.0) {
+                                speed += h.historyAvgSpeed
+                                var d=0
+                            }
+                            distance += h.historyAvgDistance
                             options.add(LatLng(it.lat, it.lon))
                             val calendar = Calendar.getInstance()
                             calendar.timeInMillis = h.historyTime
@@ -84,7 +98,7 @@ class ShowPointsFragment :
                                     .position(LatLng(h.lat, h.lon))
                                     .title(
                                         "${h.historyAvgSpeed}/${
-                                            SimpleDateFormat("dd-MM-yyyy").format(
+                                            SimpleDateFormat("hh:mm:ss").format(
                                                 calendar.time
                                             )
                                         }"
@@ -92,8 +106,9 @@ class ShowPointsFragment :
                             )
                         }
                     }
+                    binding.avgSpeed.text = "${speed / snapshot.childrenCount.toDouble()} m/s"
+                    binding.distance.text = "$distance meter"
                     googleMap?.addPolyline(options)
-
                 }
 
                 override fun onCancelled(error: DatabaseError) {

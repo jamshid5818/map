@@ -12,10 +12,11 @@ import java.util.*
  */
 class LocationHelper {
 
-    private var listener: ((lat: Double, lon: Double, speed: Double, time: Long) -> Unit)? = null
+    private var listener: ((lat: Double, lon: Double, speed: Double, time: Long, distance: Double) -> Unit)? =
+        null
 
     //    var previousLocation: Location? = null
-    fun setOnChangeLocation(f: (lat: Double, lon: Double, speed: Double, time: Long) -> Unit) {
+    fun setOnChangeLocation(f: (lat: Double, lon: Double, speed: Double, time: Long, distance: Double) -> Unit) {
         listener = f
     }
 
@@ -32,13 +33,16 @@ class LocationHelper {
 
             override fun onLocationResult(p0: LocationResult) {
                 try {
+                    var distance = 0.0
                     val speed: Double = lastLocation?.let { lastLocation ->
+
                         // Convert milliseconds to seconds
                         val elapsedTimeInSeconds =
-                            (p0.lastLocation!!.time - lastLocation.time) / 1_000.0
-                        val distanceInMeters = lastLocation.distanceTo(p0.lastLocation!!)
+                            (p0.lastLocation!!.time - lastLocation.time).toDouble() / 1_000.0
+                        val distanceInMeters = lastLocation.distanceTo(p0.lastLocation!!).toDouble()
+                        distance = distanceInMeters
                         // Speed in m/s
-                        distanceInMeters / elapsedTimeInSeconds
+                        if (lastLocation.speed != 0f) lastLocation.speed.toDouble() else distanceInMeters / elapsedTimeInSeconds
                     } ?: 0.0
                     if (lastLocation == null) {
                         lastLocation = p0.lastLocation!!
@@ -46,7 +50,8 @@ class LocationHelper {
                             p0.lastLocation!!.latitude,
                             p0.lastLocation!!.longitude,
                             speed,
-                            Date().time
+                            Date().time,
+                            distance
                         )
                     } else if (lastLocation!!.latitude != p0.lastLocation!!.latitude
                         || lastLocation!!.longitude != p0.lastLocation!!.longitude
@@ -56,7 +61,8 @@ class LocationHelper {
                             p0.lastLocation!!.latitude,
                             p0.lastLocation!!.longitude,
                             speed,
-                            Date().time
+                            Date().time,
+                            distance
                         )
                     }
                 } catch (e: Exception) {
@@ -78,13 +84,15 @@ class LocationHelper {
 
         mFusedLocationClient.lastLocation.addOnCompleteListener { p0 ->
             try {
+                var distance = 0.0
                 val speed: Double = lastLocation?.let { lastLocation ->
                     // Convert milliseconds to seconds
-                    val elapsedTimeInSeconds = (p0.result!!.time - lastLocation.time) / 1_000.0
-                    val distanceInMeters = lastLocation.distanceTo(p0.result!!)
-                    val r = 45
+                    val elapsedTimeInSeconds =
+                        (p0.result!!.time - lastLocation.time).toDouble() / 1_000.0
+                    val distanceInMeters = lastLocation.distanceTo(p0.result!!).toDouble()
+                    distance = distanceInMeters
                     // Speed in m/s
-                    distanceInMeters / elapsedTimeInSeconds
+                    if (lastLocation.speed != 0f) lastLocation.speed.toDouble() else distanceInMeters / elapsedTimeInSeconds
                 } ?: 0.0
 //                previousLocation = p0.result!!
 
@@ -94,7 +102,8 @@ class LocationHelper {
                         p0.result!!.latitude,
                         p0.result!!.longitude,
                         speed,
-                        Date().time
+                        Date().time,
+                        distance
                     )
                 } else if (lastLocation!!.latitude != p0.result!!.latitude
                     || lastLocation!!.longitude != p0.result!!.longitude
@@ -104,7 +113,8 @@ class LocationHelper {
                         p0.result!!.latitude,
                         p0.result!!.longitude,
                         speed,
-                        Date().time
+                        Date().time,
+                        distance
                     )
                 }
             } catch (e: Exception) {

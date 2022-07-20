@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_historyFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_historyFragment_to_showPointsFragment"
+            app:destination="@id/showPointsFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"

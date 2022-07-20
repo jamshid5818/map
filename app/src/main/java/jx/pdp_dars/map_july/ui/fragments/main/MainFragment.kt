@@ -4,6 +4,7 @@ import android.app.ActivityManager
 import android.content.Context
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import jx.pdp_dars.map_july.R
@@ -29,13 +30,20 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             navController.navigate(R.id.action_mainFragment_to_markPositionFragment)
         }
 
-        binding.showCurrentTravel.setOnClickListener {
-            navController.navigate(R.id.action_mainFragment_to_showPointsFragment)
+        binding.history.setOnClickListener {
+            navController.navigate(R.id.action_mainFragment_to_historyFragment)
         }
-        if (isServiceRunningInForeground(requireContext(), LocationService::class.java)){
-            binding.showCurrentTravel.visibility= View.VISIBLE
-        }else{
-            binding.showCurrentTravel.visibility= View.GONE
+
+        binding.showCurrentTravel.setOnClickListener {
+            navController.navigate(
+                R.id.action_mainFragment_to_showPointsFragment,
+                bundleOf("TRAVEL_ID" to shared.getTravelId())
+            )
+        }
+        if (isServiceRunningInForeground(requireContext(), LocationService::class.java)) {
+            binding.showCurrentTravel.visibility = View.VISIBLE
+        } else {
+            binding.showCurrentTravel.visibility = View.GONE
         }
     }
 

@@ -48,10 +48,10 @@ class LocationService : Service() {
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         intent.extras?.let {
             val travelId = it.getString("TRAVEL_ID") ?: ""
-            locationHelper?.setOnChangeLocation { lat, lon, speed, time ->
+            locationHelper?.setOnChangeLocation { lat, lon, speed, time,distance ->
                 val key = db.getReference("history").push().key ?: ""
                 db.getReference("history").child(travelId).child(key)
-                    .setValue(HistoryData(key, speed, time, travelId, lat, lon))
+                    .setValue(HistoryData(key, speed,distance, time, travelId, lat, lon))
             }
         }
         startForeground(1, notificationToDisplayServiceInfor())
